@@ -8,6 +8,8 @@
 - 바벨 사용하기
 - 웹팩 사용하기
 - CRA 사용하기
+- css(module, sass, styled-components)
+- route 사용하기
 
 ## ch02 - es6를 품은 자바스크립트, 매력적인 언어가 되다
 ## ch03 - 중요하지만 헷갈리는 리액트 개념 이해
