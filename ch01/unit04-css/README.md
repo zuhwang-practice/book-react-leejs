@@ -1,0 +1,79 @@
+# unit04 - CSS 적용
+
+- 일반 css : 순수 .css
+- css modules :
+- css in js : styled-components 같은
+
+# 일반 css적용하기
+
+- comp.js에 해당하는 comp.css 파일을 만들어 js 파일내에서 css를 import 하여 사용한다.
+- **css selector 중복 문제** : 각각의 css파일속 css셀렉터가 겹칠 경우 웹팩으로 하나의 최종.css 파일로 만들었을때 css 속성이 뒤죽 박죽 적용된다.
+
+# css-modules
+
+`{이름}.modele.css` : 형식으로 css-module파일을 생성한다.
+
+```js
+import style from './style.module.css'; // style-sheet import
+
+// ...생략
+// jsx
+<div className={`${style.클래스이름1} ${style.클래스이름2}`}>스타일 적용!</div>;
+
+// ... 생략
+```
+
+- 클래스명을 모듈속성 쓰듯 사용(템플릿 문자열과 변수처리 방식)한다.
+- 각 css-selector는 해쉬이름으로 대체되어 사용된다.
+- 클래스명 쓰는것이 복잡할때는 `classnames 패키지`를 사용해보자
+
+## classnames package
+
+`npm install classnames`
+클래스네임 속성지정을 각 각 변수를 감싸지 않고 `cn()`를 사용하여 처리할 수 있다.
+어처피 이방식 잘 안씀.. 그냥 sass쓰든. styled-components쓰든!
+
+```js
+import cn from 'classnames';
+import style from './style.module.css'; // style-sheet import
+
+// ...생략
+// jsx
+<div className={cn(style.button, style.big)}>스타일 적용!</div>;
+<div className={cn(style.button, style.small)}>스타일 적용!</div>;
+
+// ... 생략
+```
+
+# SASS 작성
+
+- 변수사용가능
+- 함수화 가능: mixin
+- 네스팅 가능
+- 코드 재사용을 올린다고는 하나... 다른 프로젝트에서 거의 안씀!
+
+## 설치
+
+`npm i node-sass`
+
+- CRA 로 진행해도 sass는 설치해야 한다.
+- CRA는 .sass로 작성하든 .css로 작성하든 알아서 컴파일 하도록 웹팩이 짜여 있다
+
+# styled-components
+
+- `` ` ``백틱 기호를 사용한다.
+- css-in-js 방식중 가장 유저가 많음
+- 설치 필요 : `npm install styled-components`
+- props를 통한 동적컴포넌트 설정가능
+- 상속 가능 `` 부모컴포.extend`{스타일지정}` ``
+
+```js
+// src/Box4.js 를 확인하자!
+import styled from 'styled-components';
+
+// 아래와 같이 스타일이 적용된 컴포넌트를 생성하여 사용한다.
+const BoxCommon = styled.div`
+  height: 50px;
+  background-color: #aaa;
+`;
+```
