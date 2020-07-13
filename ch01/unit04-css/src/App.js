@@ -1,14 +1,10 @@
-import React from 'react';
-import Box from './Box1';
-import Button from './Button1';
+import React, { useState } from 'react';
+import Dataset from './components/Dataset';
 
 function App() {
   return (
     <div>
-      <Button size='big' />
-      <Button size='small' />
-      <Box size='big' />
-      <Box size='small' />
+      <Dataset></Dataset>
     </div>
   );
 }

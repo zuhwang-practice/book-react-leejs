@@ -1,8 +1,68 @@
-# unit04 - CSS 적용
+- [unit04](#unit04)
+  - [컴포넌트 파일 작성법](#컴포넌트-파일-작성법)
+  - [속성값 타입 정의 `prop-types`](#속성값-타입-정의-prop-types)
+  - [컴포넌트 - 관련작업 묶기](#컴포넌트---관련작업-묶기)
+- [일반 css적용하기](#일반-css적용하기)
+- [css-modules](#css-modules)
+  - [classnames package](#classnames-package)
+- [SASS 작성](#sass-작성)
+  - [설치](#설치)
+- [styled-components](#styled-components)
 
-- 일반 css : 순수 .css
-- css modules :
-- css in js : styled-components 같은
+# unit04
+
+**리액트 코딩은 결국 컴포넌트 작성이다!**
+
+## 컴포넌트 파일 작성법
+
+- 0. import(모듈 > 컴포넌트 > 스타일)
+- 1. 속성값 타입 정의 코드 : `static propTypes = {}`
+- 2. 상태값 초기화 코드 : `state = {}`
+- 3. 생명주기 메서드 : `componentDidMount()`
+- 4. 기타 메서드 : `onclick=()=>{}`
+- 5. render 메서드 : `render(){ return () }`, props, state의 destructuring!
+- 6. 컴포넌트 외부에서 정의하는 변수와 함수 : `const 상수 = '상수값'`
+
+## 속성값 타입 정의 `prop-types`
+
+prop-types는 property의 타입을 정의할 때 사용하는 리액트 공식 패키지.
+
+- 대규모의 프로그램을 작성할 때 정적타입사용으로 생산성을 높이기 사용
+- 타입 정의를 함으로서 코드를 전부 들여다 보지 않아도 됨!
+
+```js
+import PTypes from 'prop-types';
+
+class MyApp extends React.Component {
+  static propTypes = {
+    name: PTypes.string.isRequired,
+    title: PTypes.string,
+    age: PTypes.number,
+    editable: PTypes.bool,
+    onChangeName: PTypes.func,
+    onChangeTitle: PTypes.func,
+  };
+  // ...
+}
+```
+
+- PTypes.element : tag 요소가능, 리액트 요소(컴포넌트) 만 가능
+- PTypes.node : tag 요소가능, number, string 등 가능
+- PTypes.instanceOf(Message) : Message클래스로 만든 인스턴스만 가능
+- PTypes.oneOf(['a','b']): 전달된 배열에 포함된 값중 하나만 가능
+- PTypes.oneOfTypes([PTypes.number, PTypes.string]): 전달된 배열에 포함된 타입만 가능
+- PTypes.arrayOf(PTypes.number) : 지정 타입으로만 구성된 배열만 가능
+- PTypes.shape({name:PTypes.string, age:PTypes.number}): 지정타입 객체만 가능
+- PTypes.objectOf(PTypes.number) : 모든 **값**이 지정타입으로 구성된 객체만 가능(**key는 상관없음**)
+- CB-function : 지정콜백함수로 커스텀 속성값 타입 정의 가능!
+
+## 컴포넌트 - 관련작업 묶기
+
+**컴포넌트 분할 기준?**
+
+- UI 컴포넌트
+- API 호출
+- DB 관리
 
 # 일반 css적용하기
 
