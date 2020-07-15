@@ -1,0 +1,27 @@
+{
+  "name": "unit07-babel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "npx babel src/code.js --out-file dist/dist.js",
+    "remove-console-log": "npx babel src/plugins/sample-consolelog-remove.js --out-file dist/remove-console-log.js",
+    "insert-console-log": "npx babel src/plugins/sample-consolelog-insert.js --out-file dist/insert-console-log.js",
+    "webpack": "npx webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-arrow-functions": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/plugin-transform-template-literals": "^7.10.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "babel-preset-minify": "^0.5.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
