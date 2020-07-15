@@ -1,0 +1,8 @@
+{
+  "extends": "../../common/.babelrc", // 상속받을 바벨설정파일 지정
+  "plugins": [
+    // 상속 바벨설정파일에 플러그인을 추가시킨다, 중복의 경우 현재 파일로 덮어쓰기 된다. 즉 이전 loose옵션은 제거된다
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-transform-template-literals"
+  ]
+}

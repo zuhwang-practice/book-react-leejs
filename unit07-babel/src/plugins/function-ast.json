@@ -1,0 +1,102 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "FunctionDeclaration",
+      "id": {
+        "type": "Identifier",
+        "name": "onFunc"
+      },
+      "body": {
+        "type": "BlockStatement",
+        "body": [
+          {
+            "type": "VariableDeclaration",
+            "start": 21,
+            "end": 34,
+            "declarations": [
+              {
+                "type": "VariableDeclarator",
+                "start": 27,
+                "end": 34,
+                "id": {
+                  "type": "Identifier",
+                  "start": 27,
+                  "end": 32,
+                  "name": "ooooo"
+                },
+                "init": {
+                  "type": "Literal",
+                  "start": 33,
+                  "end": 34,
+                  "value": 0,
+                  "raw": "0"
+                }
+              }
+            ],
+            "kind": "const"
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "console"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "name": "log"
+                }
+              },
+              "arguments": [
+                {
+                  "type": "TemplateLiteral",
+                  "expressions": [
+                    {
+                      "type": "Identifier",
+                      "name": "ooooo"
+                    }
+                  ],
+                  "quasis": [
+                    {
+                      "type": "TemplateElement",
+                      "value": {
+                        "raw": "",
+                        "cooked": ""
+                      },
+                      "tail": false
+                    },
+                    {
+                      "type": "TemplateElement",
+                      "value": {
+                        "raw": " 함수 실행",
+                        "cooked": " 함수 실행"
+                      },
+                      "tail": true
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "ReturnStatement",
+            "start": 69,
+            "end": 80,
+            "argument": {
+              "type": "Literal",
+              "start": 76,
+              "end": 80,
+              "value": null,
+              "raw": "null"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "sourceType": "module"
+}

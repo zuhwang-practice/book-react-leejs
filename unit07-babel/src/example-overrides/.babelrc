@@ -1,0 +1,14 @@
+{
+  "presets": ["@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-transform-template-literals",
+    "@babel/plugin-transform-arrow-functions"
+  ],
+  "overrides": [
+    {
+      "includ": "./service1",
+      "exclude": "./service1/code2.js",
+      "plugins": ["@babel/plugin-transform-arrow-functions"]
+    }
+  ]
+}
