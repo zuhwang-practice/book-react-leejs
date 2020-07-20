@@ -28,7 +28,8 @@
 
 ## ch07 - 바벨과 웹팩 자세히 들여다보기
 
-- [unit 7. 바벨과 웹팩](./unit07-babel/README.md)
+- [unit 7. 바벨](./unit07-babel/README.md)
+- [unit 8. 웹팩](./unit08-webpack/README.md)
 
 ## ch08 - 서버사이드 렌더링 그리고 nextjs
 
