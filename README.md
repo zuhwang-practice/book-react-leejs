@@ -33,6 +33,8 @@
 
 ## ch08 - 서버사이드 렌더링 그리고 nextjs
 
+- [unit 9. SSR 초급](./unit09-ssr-basic/README.md)
+
 ## ch09 - 정적타입 그리고 타입스크립트
 
 ## ch10 - 다가올 리액트의 변화 : 파이버

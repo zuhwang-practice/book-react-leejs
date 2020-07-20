@@ -200,6 +200,7 @@ module.exports = {
 
 - clean-webpack-plugin : 웹팩이 실행 될 때마다 dis 폴더 정리하도록 설정
 - html-webpack-plugin : index.html 파일이 생성 되도록 설정
+  ㅈ
 
 1. 프로젝트 루트에 템플릿/index.html 파일을 생성하자. 이 파일을 기반으로 번들 index.html파일이 작성된다.
    - `<div id='root'>` 와 같이 리액트 요소를 적용할 곳을 지정한다.
