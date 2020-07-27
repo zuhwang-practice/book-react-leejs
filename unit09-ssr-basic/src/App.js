@@ -3,8 +3,17 @@ import styled from 'styled-components';
 import Home from './components/Home';
 import About from './components/About';
 
+const fetchUsername = () => {
+  const usernames = ['zuzu', 'mimi', 'janny'];
+  return new Promise((resolve) => {
+    const username = usernames[Math.floor(Math.random() * 3)];
+    setTimeout(() => resolve(username), 100);
+  });
+};
+
 const App = (props) => {
   const [nav, setNav] = useState(props.page);
+  const [username, setUsername] = useState('');
   const onClickNav = (e) => {
     const pg = e.target.dataset.page;
     console.log('click button : ', pg);
@@ -13,12 +22,7 @@ const App = (props) => {
   };
 
   useEffect(() => {
-    console.log('props.page', props.page);
-    console.log('마운트완료, 기본세팅');
-    // window.onpopstate = (e) => {
-    //   console.log(e);
-    //   setNav(e.state);
-    // };
+    fetchUsername().then((username) => setUsername(username));
   }, []);
 
   const PageComponent = nav === 'home' ? Home : About;
@@ -35,7 +39,7 @@ const App = (props) => {
       </nav>
       <div>
         페이지 컴포넌트 시작
-        <PageComponent />
+        <PageComponent username={username} />
         페이지 컴포넌트 끝
       </div>
     </div>

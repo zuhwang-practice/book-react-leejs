@@ -1,14 +1,11 @@
 const path = require('path');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
-function getConfig(isServer) {
+function getConfig(isServer, name) {
   return {
-    entry: isServer
-      ? { server: './src/server.js' }
-      : { main: './src/index.js' },
+    entry: { [name]: `./src/${name}` },
     output: {
       filename: isServer ? '[name].bundle.js' : '[name].[chunkhash].js',
       path: path.resolve(__dirname, 'dist'),
@@ -20,18 +17,21 @@ function getConfig(isServer) {
       __dirname: false,
     },
     optimization: isServer
-      ? { splitChunks: false, minimize: false }
+      ? {
+          splitChunks: false,
+          minimize: false,
+        }
       : undefined,
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.js$/,
           use: {
             loader: 'babel-loader',
             options: {
               configFile: path.resolve(
                 __dirname,
-                isServer ? '.babelrc.server.js' : '.babelrc.client.js'
+                isServer ? '.babelrc.server.js' : '.babelrc.client.js',
               ),
             },
           },
@@ -50,7 +50,6 @@ function getConfig(isServer) {
     plugins: isServer
       ? []
       : [
-          // new CleanWebpackPlugin(), // server.bundle.js 삭제문제로 주석처리함!
           new HtmlWebpackPlugin({
             template: './template/index.html',
           }),
@@ -61,41 +60,8 @@ function getConfig(isServer) {
     mode: 'production',
   };
 }
-
-module.exports = [getConfig(false), getConfig(true)];
-
-// module.exports = {
-//   mode: 'production',
-//   entry: './src/index.js',
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     publicPath: '/dist/',
-//     filename: '[name].[chunkhash].js',
-//   },
-//   module: {
-//     rules: [
-//       {
-//         test: /\.(js|jsx)$/,
-//         exclude: /node_modules/,
-//         use: [
-//           {
-//             loader: 'babel-loader',
-//             options: {
-//               // 클라이언트에서만 실행되도록 설정
-//               configFile: path.resolve(__dirname, '.babelrc.client.js'),
-//             },
-//           },
-//         ],
-//       },
-//       { test: /\.(css)$/, use: ['style-loader', 'css-loader'] },
-//     ],
-//   },
-//   plugins: [
-//     new CleanWebpackPlugin(),
-//     new HtmlWebpackPlugin({ template: './template/index.html' }),
-//     new webpack.ProvidePlugin({
-//       React: 'react',
-//       styled: 'styled-components',
-//     }),
-//   ],
-// };
+module.exports = [
+  getConfig(false, 'index'),
+  getConfig(true, 'server'),
+  getConfig(true, 'prerender'),
+];
