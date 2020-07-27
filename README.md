@@ -33,7 +33,7 @@
 
 ## ch08 - 서버사이드 렌더링 그리고 nextjs
 
-- [unit 9. SSR 초급](./unit09-ssr-basic/README.md)
+- [unit 9. SSR](./unit09-ssr-basic/README.md)
 
 ## ch09 - 정적타입 그리고 타입스크립트
 
