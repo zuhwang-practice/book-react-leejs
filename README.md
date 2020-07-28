@@ -6,11 +6,11 @@
 
 ## ch01 - 리액트 프로젝트 시작하기
 
-- [unit 2. 바벨/웹팩 사용하기](./unit02/README.md)
-  - [웹팩 테스트](./unit02/webpack-test/README.md)
-- [unit 3. CRA 사용하기](./unit03-cra/README.md)
-- [unit 4. dataset, css(module, sass, styled-components)](./unit04-css/README.md)
-- [unit 5. route 사용하기](./unit05-route/README.md)
+- [unit 2. 바벨/웹팩 사용하기](./unit02)
+  - [웹팩 테스트](./unit02/webpack-test)
+- [unit 3. CRA 사용하기](./unit03-cra)
+- [unit 4. dataset, css(module, sass, styled-components)](./unit04-css)
+- [unit 5. route 사용하기](./unit05-route)
 
 ## ch02 - es6를 품은 자바스크립트, 매력적인 언어가 되다
 
@@ -20,20 +20,22 @@
 
 ## ch05 - 진화된 함수형 컴포넌트 : 리액트 훅
 
-- [unit 0. hooks 사용하기](./unit00/README.md)
+- [unit 0. hooks 사용하기](./unit00)
 
 ## ch06 - 리덕스로 상태관리하기
 
-- [unit 6. 리덕스 + immer로 불변객체 관리하기](./unit05-redux/README.md)
+- [unit 6. 리덕스 + immer로 불변객체 관리하기](./unit05-redux)
 
 ## ch07 - 바벨과 웹팩 자세히 들여다보기
 
-- [unit 7. 바벨](./unit07-babel/README.md)
-- [unit 8. 웹팩](./unit08-webpack/README.md)
+- [unit 7. 바벨](./unit07-babel)
+- [unit 8. 웹팩](./unit08-webpack)
 
 ## ch08 - 서버사이드 렌더링 그리고 nextjs
 
-- [unit 9. SSR](./unit09-ssr-basic/README.md)
+- [unit 9. SSR](./unit09-ssr-basic)
+- [unit 10. Next](./unit10-next)
+
 
 ## ch09 - 정적타입 그리고 타입스크립트
 
