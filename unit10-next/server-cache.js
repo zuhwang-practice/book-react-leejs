@@ -1,7 +1,6 @@
 const express = require('express');
 const next = require('next');
 const url = require('url');
-const fs = require('fs');
 const lruCache = require('lru-cache');
 
 const ssrCache = new lruCache({
@@ -40,54 +39,23 @@ app.prepare().then(() => {
   // 서버열고 대기~
   server.listen(port, (err) => {
     if (err) throw err;
-    console.log(`
-    http://localhost:3000
-    http://localhost:3000/page3
-    http://localhost:3000/page3-hi
-    http://localhost:3000/page3-bye
-    `);
+    console.log(`> ready on http://localhost:${port}`);
   });
 });
 
-// ? next.config.js의 exportPathMap과 동일한 내용
-// const prerenderList = [
-//   { name: 'page2', path: '/page2' },
-//   { name: 'page3', path: '/page3' },
-//   { name: 'page3-hi', path: '/page3?text=hi' },
-//   { name: 'page3-bye', path: '/page3?text=bye' },
-// ];
-
-// 웹팩의 라우터 설정 값 가저오기
-const { exportPathMap } = require('./next.config');
-const prerenderList = exportPathMap();
-
-// ? out 폴더에 정적파일을 프리렌더캐쉬 목록에 저장,
-const prerenderCache = {};
-if (!dev) {
-  // 프로덕션 모드일때
-  for (const name in prerenderList) {
-    const html = fs.readFileSync(`./out/${name}.html`, 'utf8');
-    prerenderCache[name] = html;
-  }
-}
-
+// 렌더&캐시하는 로직 분리
 const renderAndCashe = async (req, res) => {
-  const parsedURL = url.parse(req.url, true);
-  const cacheKey = parsedURL.path;
+  const parseURL = url.parse(req.url, true);
+  const cacheKey = parseURL.path;
   if (ssrCache.has(cacheKey)) {
-    console.log('캐시 사용');
+    console.log('used cache!');
     res.send(ssrCache.get(cacheKey));
     return;
   }
-  if (prerenderCache.hasOwnProperty(cacheKey)) {
-    console.log('미리 랜더링한 HTML 사용');
-    res.send(prerenderCache[cacheKey]);
-    return;
-  }
   try {
-    const { query, pathname } = parsedURL;
+    const { query, pathname } = parseURL;
     const html = await app.renderToHTML(req, res, pathname, query);
-    if ((res.statusCode = 200)) {
+    if (res.statusCode === 200) {
       ssrCache.set(cacheKey, html);
     }
     res.send(html);

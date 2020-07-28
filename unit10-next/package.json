@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx next build && npx next start",
+    "dev": "npx next build && npx next export && node server.js",
+    "start": "npx next build && npx next export && NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
     "next": "^9.5.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1"
   }
 }
