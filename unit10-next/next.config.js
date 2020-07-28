@@ -21,4 +21,13 @@ module.exports = {
     });
     return config;
   },
+  exportPathMap: () => {
+    // ? exportPathMap은 next의 라우팅 경로다.
+    return {
+      '/page2': { page: '/page2' },
+      '/page3': { page: '/page3' },
+      '/page3-hi': { page: '/page3', query: { text: 'hi' } },
+      '/page3-bye': { page: '/page3', query: { text: 'bye' } },
+    };
+  },
 };

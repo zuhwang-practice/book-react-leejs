@@ -18,7 +18,12 @@
     - [동적임포팅 사용 모듈 분할](#동적임포팅-사용-모듈-분할)
     - [`getInitialProps()`에서 동적임포트 사용하기](#getinitialprops에서-동적임포트-사용하기)
     - [공통사용 모듈 분할](#공통사용-모듈-분할)
-  - [8) 웹서버 직접띄우기](#8-웹서버-직접띄우기)
+  - [8) 서버사이드 캐싱 - 웹서버 직접 구현](#8-서버사이드-캐싱---웹서버-직접-구현)
+  - [9) 페이지 미리 랜더링하기](#9-페이지-미리-랜더링하기)
+    - [정적페이지 서비스하는 웹서버 작성](#정적페이지-서비스하는-웹서버-작성)
+  - [10) `exportPathMap` : 정적페이지에서 쿼리파라미터 사용하기](#10-exportpathmap--정적페이지에서-쿼리파라미터-사용하기)
+  - [11) styled-components 적용](#11-styled-components-적용)
+    - [서버와 클라이언트 결과값 일치시키기](#서버와-클라이언트-결과값-일치시키기)
 
 # nextjs
 
@@ -221,9 +226,116 @@ CRA로 리액트앱을 만들떼는 웹팩설정이 불가능 했지만(eject해
 
 - 공통 모듈로 사용할 파일 생성 : [`src/util.js`](./src/util.js)
 
-## 8) 웹서버 직접띄우기
+## 8) 서버사이드 캐싱 - 웹서버 직접 구현
+
+[nextjs 공식문서 커스텀 서버](https://nextjs.org/docs/advanced-features/custom-server)
 
 - **SSR 캐싱을 위해** 웹서버를 직접 띄우자!
 - `express` 프레임워크 사용 : `npm i express`
 - [`프로젝트루트/server.js`](./server.js) 만들어 서버 구현
--
+  - express, next, lru-cache, url 모듈 사용
+  - lru-cache 초기 설정 : max 100, age 60초
+  - `넥스트실행객채.prepare().then()` : 넥스트 준비과정이 끝나면 `then`의 콜백함수 실행
+  -
+
+## 9) 페이지 미리 랜더링하기
+
+페이지를 미리 렌더링하면 서버의 cpu자원을 절얄할 수 있음. 미리 렌더링한 페이지는 서버에서 next를 실행하지 않고도 **정적페이지를 서비스** 할 수 있다.
+
+- [nextjs 공식문서 static HTML 내보내기](https://nextjs.org/docs/advanced-features/static-html-export)
+- 넥스트에서는 `next export`명령어로 페이지를 미리 렌더링
+- **렌더링 전 빌드는 필수**!
+- `npx next build && npx next export` 로 페이지를 렌더링 하자
+- 미리 렌더링한 페이지는 `/out`폴더에 위치, 각페이지별 html파일이 생성된다
+
+### 정적페이지 서비스하는 웹서버 작성
+
+아래 예제 코드는 단순히 정적페이지만 서비스하는 웹서버 로직이다.
+
+- express를 통해 static폴더를 설정
+- ilsten()을 통해 서버를 열어두면 미리 렌더링된 html파일로만 사이트가 구현
+- `node <웹서퍼-파일명>.js`를 통해 서버를 실행시켜 확인하자!
+  > **정적페이지 사이트와 동적페이지 어떻게 구분해 ?**
+  > 정적 웹서버를 열고 `http:localhost:3000/page3?text=여기에글을입력해서` 와 같이 **주소창에 쿼리파라미터를 포함하여 접속**해보자! 쿼리파라미터가 제대로 작동하지 않으며 화면에 `Cannot GET /page3`라는 안내 문구와 콜솔창에 404 에러를 확인 할 수 있다.
+  > 하지만 넥스트에서는 쿼리파라미터를 활용한 정적페이지 구현을 할수 있도록 `exportPathMap`을 사용하니 아래에서 확인하도록 하자!
+
+```js
+// server.js
+
+const express = require('express');
+
+const server = express();
+server.use(express.static('out'));
+server.listen(3000, (err) => {
+  if (err) throw err;
+});
+```
+
+## 10) `exportPathMap` : 정적페이지에서 쿼리파라미터 사용하기
+
+`exportPathMap`는 넥스트에서 제공하는 옵션으로 쿼리파라미터를 활용해 정적페이지를 만들수 있도록 한다. 설정은 웹팩파일을 수정해야 한다.
+
+- `async` 콜백을 사용할 경우 `defaultPathMap`와 `{dev, dir, outDir, distDir, buildId}` 2개의 매개변수를 를 사용할 수 있다. 자세한 설명은 [next 공식문서 `exportPathMap`사용법](https://nextjs.org/docs/api-reference/next.config.js/exportPathMap)를 확인하여, 각 매개변수사용법을 확인하자
+- `next.config.js`를 프로젝트 루트에 생성하여 필요한 `exportPathMap` 옵션을 추가해 보도록 하자
+  - [`./next.config.js`](./next.config.js)
+
+```js
+module.exports = {
+  webpack: (config) => {
+    // 웹팩설정
+  },
+  exportPathMap: async (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId },
+  ) => {
+    return {
+      '브라우저-URL-경로': {
+        page: 'pages폴더의-페이지-경로',
+        query: { 파라미터key: '값' },
+      },
+    };
+  },
+};
+```
+
+- 위 코드와 같이 `/page3`,`/page3-hi`,`/page3-bye` url에 쿼리 정보를 미리 입력하여 설정
+- **설정한 다음 `npx next build && npx next export` 빌드와 내보내기를 꼭하고 `out`폴더 HTML정적파일에 반영해야 한다!**
+- 노드 환경을 **프로덕션 모드로 서버를 실행**시키자!(**데브 모드에서는 정적페이지 확인이 안된다**) : `NODE_ENV=production node server.js`
+- 주소창에 `localhost:3000/page3-hi`와 같이 내가 지정한 path로 접속해보자! 해당 지정한 파라미터가 화면에 표시된 것이 확인된다! = 이방식으로 블로그포스팅 페이지 조정이 가능한건가?
+
+> 여기 까지 진행한 뒤 서버를 확인하면 지정한 page이외의 경로가 먹통이 된 것을 확인 할 수 있다.
+> `out`폴더를 보고 확인할 수 있지만, `next.config.js`에서 `exportPathMap`으로 설정한 페이지만 HTML파일이 생성된 것 때문인데, `server.js`의 코드에서 정적페이지와 동적페이지를 동시에 서비스 할수 있도록 로직을 수정해야 한다~!
+
+## 11) styled-components 적용
+
+SSR에서 스타일을 적용하기 위해서는 스타일 코드를 추출하여 html에 삽입하는 과정이 필요하다.(앞에서 해봤음~!)
+
+- 넥스트에서 기본으로 제공하는 styled-jsx는 `_document.js`에서 스타일코드를 추출한다.
+- [`/pages/_document.js`](./pages/_document.js)에 styled-components를 사용하는 코드를 작성하자
+- `_document` 파일은 서버에서만 렌더링 되며 onClick은 작동하지 안음
+
+### 서버와 클라이언트 결과값 일치시키기
+
+스타일 시트를 SSR적용을 한 뒤 살펴보면, 클라이언트와 서버간 생성하는 해쉬값이 다르기 때문에 콘솔창에 에러가 출력된다.
+
+```bash
+// 콘솔창 에러내용
+react-dom.development.js?61bb:88 Warning: Prop `className` did not match. Server: "sc-AxiKw frxxRJ" Client: "sc-AxjAm kQkuzO"
+    in h1 (created by styled.h1)
+    in styled.h1 (created by Index)
+    in div (created by Index)
+    in Index (created by MyApp)
+    in Layout (created by MyApp)
+    in MyApp
+    ...
+```
+
+이 문제를 해결하기 위해 `bable-plugin-styled-components`패키지를 설치하고 바벨 설정을 수정하도록하자!
+
+> next는 CRA와 다르게 바벨/웹팩 설정을 자유롭게 할 수 있음!
+
+- `npm i babel-plugin-styled-components`
+- [`/.babelrc`](./.babelrc) 파일을 프로젝트 루트에생성 & 아래 내용 기입
+  - `next/babel` 프리셋은 next에서 바벨설정을 하기위해 항상 포함시켜야 한다
+  - `"plugins"`에 플러그인을 추가해준다!
+  - 콘솔에 뜨던 에러창이 사라진 것이 확인된다~ 굳굳굳!!
