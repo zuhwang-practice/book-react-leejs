@@ -1,0 +1,20 @@
+{
+  "name": "unit10-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx next build && npx next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "next": "^9.5.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
