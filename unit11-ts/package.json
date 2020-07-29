@@ -1,0 +1,19 @@
+{
+  "name": "unit11-ts",
+  "version": "1.0.0",
+  "description": "- [정적 타입 언어](#정적-타입-언어) - [타입스크립트](#타입스크립트)   - [타입지정 basic](#타입지정-basic)   - [교차(`&`)타입 & 유니온(`|`)타입](#교차타입--유니온타입)   - [type키워드로 타입 별칭주기](#type키워드로-타입-별칭주기)",
+  "main": "basic.js",
+  "scripts": {
+    "basic": "tsc basic.ts && node basic.js",
+    "func": "tsc functionTypes.ts && node functionTypes.js",
+    "interface": "tsc interface.ts && node interface.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "jest": "^26.1.0",
+    "typescript": "^3.9.7"
+  }
+}
