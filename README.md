@@ -36,7 +36,10 @@
 - [unit 9. SSR](./unit09-ssr-basic)
 - [unit 10. Next](./unit10-next)
 
-
 ## ch09 - 정적타입 그리고 타입스크립트
+
+- [unit 11. 타입스크립트 Next와 함께쓰기](./unit11-ts-with-next)
+- [unit 12. 타입스크립트 프레임 워크 없이 사용하기](./unit12-ts-without-FW)
+- [unit 13. CRA없이 리액트프로젝트 세팅하기](./unit13-set)
 
 ## ch10 - 다가올 리액트의 변화 : 파이버

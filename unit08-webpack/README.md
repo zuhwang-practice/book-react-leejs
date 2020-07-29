@@ -23,7 +23,6 @@
   - [동적 임포트(dynamic import)](#동적-임포트dynamic-import)
     - [prefetch & preload](#prefetch--preload)
   - [로더 제작하기](#로더-제작하기)
-  - [웹팩 플러그인 제작하기](#웹팩-플러그인-제작하기)
 
 # 웹팩
 
@@ -39,7 +38,7 @@
 ## 설치
 
 `npm init` : npm 초기화(필수 node_modules 받기)
-`npm i webpack webpakc-cli` : webpack, webpack-cli 설치
+`npm i webpack webpack-cli` : webpack, webpack-cli 설치
 
 - webpack-cli : cli(command line interface), 커멘드라인(콘솔)에서 webpack명령어를 실행할 수 있다.
 
@@ -378,7 +377,3 @@ module.exports = {
 - 여러 로도 합체 : 모듈입력받기 > 로더 n개 적용 > 마지막 로더는 자바스크립트 코드 반환
 
 * 예제 : [index5.js](./src/index5.js) ... 앙됌ㅋㅋ 다음에 다시 ..!
-
-## 웹팩 플러그인 제작하기
-
-다음에!
