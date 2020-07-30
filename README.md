@@ -40,6 +40,7 @@
 
 - [unit 11. 타입스크립트 Next와 함께쓰기](./unit11-ts-with-next)
 - [unit 12. 타입스크립트 프레임 워크 없이 사용하기](./unit12-ts-without-FW)
-- [unit 13. CRA없이 리액트프로젝트 세팅하기](./unit13-set)
+- [unit 13. 프레임워크 없이 타입스크립트 세팅](./unit13-set)
+- [unit 14. 리덕스 타입스크립트 타입지정](./unit14-ts-redux)
 
 ## ch10 - 다가올 리액트의 변화 : 파이버
