@@ -13,12 +13,11 @@
 - 리덕스를 위한 패키지 설치
 - Immer는 불변객체를 위한 패키지
 
-`npm i @types/react @types/react-redux`
+`npm i @types/react @types/react-dom @types/react-redux`
 
 - 타입스크립트를 위한 패키지별 타입설정 설치
 - `react` 타입
 - `react-redux` 패키지는 타입 설정이 필요함
-- react-dom 리액트 돔은 브라우저용이기 때문에 타입스크립트는 필욥나봄 ?
 - `redux`, `Immer` 는 자체 내장하고 있기에 설치안함
 
 # CRA 파일 정리
