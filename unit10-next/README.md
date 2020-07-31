@@ -145,7 +145,15 @@ CRA로 리액트앱을 만들떼는 웹팩설정이 불가능 했지만(eject해
 
 ## 5) 서버데이터 전달: `getInitialProps`
 
-> 최신 버전에서는 [`getStaticPropsNext`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation)와 [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering)를 구별하여 사용함을 추천
+> 최신 버전에서는 [`getStaticProps(),getStaticPaths()`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation)와 [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering)으로 개편(?)
+>
+> - 정적생성 : 사전 렌더링/정적페이지에 사용
+>   - `getStaticProps()` : **빌드**할 때 데이터를 가져옴
+>   - `getStaticPaths()` : 데이터를 기반으로 **사전 렌더링(pre-render) 할 동적 경로**를 지정
+>   - `getStaticProps()`와 `getStaticPaths()` 는 항상 짝으로 사용하자!
+> - SSR
+>   - `getServerSideProps()` : `getInitialProps()`가 서버측과 클라이언트측 모두 호출 됬다면, `getServerSideProps()`는 절대 서버측에서만 실행!
+>     > 위 3개의 api는 결과를 `return { props : { props이름 : 값 }}` 처럼 객체-props키의 값으로 전달한다!
 
 넥스트에서는 정적메서드 `getInitialProps`를 통해 서버데이터를 페이지의 `props`로 값을 전달한다.
 `getInitialProps`는 **페이지 진입직전에 호출**한다. 사용자는 해당 사이트에서 첫페이지(어디든)를 요청하면 `getInitialProps`메서드는 **서버에서 호출**된다. 이후 클라이언트에서 페이지 전환을 하면 그때부터는 클라이언트에서 `getInitialProps`가 호출된다.
@@ -272,6 +280,8 @@ server.listen(3000, (err) => {
 ```
 
 ## 10) `exportPathMap` : 정적페이지에서 쿼리파라미터 사용하기
+
+> `getStaticPaths()` api가 추가되었다, `getStaticPaths()`를 사용하도록하자!
 
 `exportPathMap`는 넥스트에서 제공하는 옵션으로 쿼리파라미터를 활용해 정적페이지를 만들수 있도록 한다. 설정은 웹팩파일을 수정해야 한다.
 
